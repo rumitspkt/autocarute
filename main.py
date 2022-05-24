@@ -152,7 +152,7 @@ def mainControl(command_queue, n_received_semaphore, out_queue, resolution, n_se
         # Send orders to Arduino
         try:
             command_queue.put_nowait((Order.MOTOR, int(speed_order)))
-            command_queue.put_nowait((Order.SERVO, angle_order))
+            command_queue.put_nowait((Order.SERVO, angleToDirection(angle_order)))
         except fullException:
             n_full += 1
             # print("Command queue is full")
@@ -172,6 +172,14 @@ def mainControl(command_queue, n_received_semaphore, out_queue, resolution, n_se
     log.info("{:.2f}% of time the command queue was full".format(100 * n_full / n_total))
     log.info("Main loop: {:.2f} Hz".format((n_total - n_full) / (time.time() - start_time)))
 
+# 0 - stop, 1 - left, 2 - right, else forward/backward
+def angleToDirection(angle_order):
+    direction = 0
+    if angle_order < 110:
+        return 1
+    elif angle_order > 110:
+        return 2
+    return angle_order
 
 if __name__ == '__main__':
     serial_file = None
