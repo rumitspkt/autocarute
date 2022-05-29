@@ -11,11 +11,10 @@ import cv2
 import numpy as np
 
 from constants import REF_ANGLE, MAX_ANGLE, EXIT_KEYS, WEIGHTS_PTH, NUM_OUTPUT, MODEL_TYPE, TARGET_POINT
-from train import loadNetwork, predict
 from path_planning.bezier_curve import computeControlPoints, bezier
 
 # Load trained model
-model = loadNetwork(WEIGHTS_PTH, NUM_OUTPUT, MODEL_TYPE)
+# model = loadNetwork(WEIGHTS_PTH, NUM_OUTPUT, MODEL_TYPE)
 
 
 def processImage(image, debug=False):
