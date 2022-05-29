@@ -3,7 +3,7 @@ import argparse
 import cv2
 import numpy as np
 import matplotlib
-matplotlib.use('PyQt5')
+matplotlib.use('agg')
 
 import matplotlib.pyplot as plt
 
