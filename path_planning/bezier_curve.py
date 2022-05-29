@@ -11,7 +11,7 @@ import argparse
 import scipy.special
 import numpy as np
 import matplotlib
-matplotlib.use('Qt5Agg')
+matplotlib.use('PyQt5')
 
 import matplotlib.pyplot as plt
 

@@ -10,7 +10,7 @@ from __future__ import division, print_function
 
 import argparse
 import matplotlib
-matplotlib.use('Qt5Agg')
+matplotlib.use('PyQt5')
 
 import matplotlib.pyplot as plt
 import numpy as np
