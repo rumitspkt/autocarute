@@ -2,6 +2,9 @@ import argparse
 
 import cv2
 import numpy as np
+import matplotlib
+matplotlib.use('Qt5Agg')
+
 import matplotlib.pyplot as plt
 
 from constants import MAX_WIDTH, MAX_HEIGHT
@@ -30,6 +33,7 @@ new_height, new_width = int(height * 1) + ty + 600, int(width * 1.2) + tx
 # calculate the perspective transform matrix
 transform_matrix = cv2.getPerspectiveTransform(pts1, pts2)
 complete_transform = np.dot(translation_matrix, transform_matrix)
+
 
 def imshow(im, name=""):  # pragma: no cover
     plt.figure(name)
@@ -66,6 +70,7 @@ def transformPoint(point):
 def warpImage(image):
     # TODO: transform only points
     return cv2.warpPerspective(image, complete_transform, (new_width, new_height))
+
 
 if __name__ == '__main__':  # pragma: no cover
     parser = argparse.ArgumentParser(description='Transform image to have a top down view')

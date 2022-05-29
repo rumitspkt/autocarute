@@ -9,6 +9,8 @@ From https://github.com/AtsushiSakai/PythonRobotics
 from __future__ import division, print_function
 
 import argparse
+import matplotlib
+matplotlib.use('Qt5Agg')
 
 import matplotlib.pyplot as plt
 import numpy as np

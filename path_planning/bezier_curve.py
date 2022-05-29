@@ -10,6 +10,9 @@ import argparse
 
 import scipy.special
 import numpy as np
+import matplotlib
+matplotlib.use('Qt5Agg')
+
 import matplotlib.pyplot as plt
 
 from constants import MAX_WIDTH, MAX_HEIGHT
