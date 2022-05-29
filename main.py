@@ -175,9 +175,9 @@ def mainControl(command_queue, n_received_semaphore, out_queue, resolution, n_se
 # 0 - stop, 1 - left, 2 - right, else forward/backward
 def angleToDirection(angle_order):
     direction = 0
-    if angle_order < 110:
+    if angle_order < 100:
         return 1
-    elif angle_order > 110:
+    elif angle_order > 120:
         return 2
     return angle_order
 
