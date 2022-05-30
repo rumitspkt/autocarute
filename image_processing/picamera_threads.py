@@ -132,6 +132,8 @@ class Viewer(object):
     def __init__(self, out_queue, resolution, debug=False, fps=90):
         self.camera = picamera.PiCamera(resolution=CAMERA_RESOLUTION, sensor_mode=CAMERA_MODE,
                                         framerate=fps)
+        self.camera.vflip = True
+        self.camera.hflip = True
         self.out_queue = out_queue
         # self.camera.zoom = (0.0, 0.0, 1.0, 1.0)
         # self.camera.awb_gains = 1.5
