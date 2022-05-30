@@ -80,7 +80,7 @@ def mainControl(command_queue, n_received_semaphore, out_queue, resolution, n_se
     # Neutral Angle
     theta_init = (THETA_MAX + THETA_MIN) / 2
     # Middle of the image
-    x_center = (160, 120)
+    x_center = resolution[0] // 2
     max_error_px = resolution[0] // 2  # max error in pixel
     # Use mutable to be modified by signal handler
     should_exit = [False]
