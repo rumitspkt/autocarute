@@ -40,7 +40,7 @@ formatter = logging.Formatter('%(asctime)s -- %(levelname)s - %(message)s')
 
 # Create file handler which logs even debug messages
 fh = logging.FileHandler('logs/{}.log'.format(datetime.now().strftime("%y-%m-%d_%Hh%M_%S")))
-fh.setLevel(logging.INFO)
+fh.setLevel(logging.DEBUG)
 fh.setFormatter(formatter)
 log.addHandler(fh)
 
@@ -80,7 +80,7 @@ def mainControl(command_queue, n_received_semaphore, out_queue, resolution, n_se
     # Neutral Angle
     theta_init = (THETA_MAX + THETA_MIN) / 2
     # Middle of the image
-    x_center = resolution[0] // 2
+    x_center = (160, 120)
     max_error_px = resolution[0] // 2  # max error in pixel
     # Use mutable to be modified by signal handler
     should_exit = [False]
@@ -151,8 +151,19 @@ def mainControl(command_queue, n_received_semaphore, out_queue, resolution, n_se
 
         # Send orders to Arduino
         try:
-            command_queue.put_nowait((Order.MOTOR, int(speed_order)))
-            command_queue.put_nowait((Order.SERVO, angleToDirection(angle_order)))
+            if turn_percent > 0:
+                command_queue.put_nowait((Order.SERVO, angleToDirection(angle_order)))
+                command_queue.put_nowait((Order.MOTOR, int(speed_order)))
+            elif turn_percent == -1:
+                command_queue.put_nowait((Order.SERVO, 1)) # force left
+                command_queue.put_nowait((Order.MOTOR, int(speed_order)))
+            elif turn_percent == -2:
+                command_queue.put_nowait((Order.SERVO, 2))  # force right
+                command_queue.put_nowait((Order.MOTOR, int(speed_order)))
+            elif turn_percent == -3:
+                command_queue.put_nowait((Order.SERVO, 3))  # force stop
+                command_queue.put_nowait((Order.MOTOR, 0))
+
         except fullException:
             n_full += 1
             # print("Command queue is full")

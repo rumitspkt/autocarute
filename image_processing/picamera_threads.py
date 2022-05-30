@@ -14,6 +14,10 @@ import cv2
 from image_processing.image_processing import processImage
 from constants import CAMERA_RESOLUTION, RECORD_VIDEO, CAMERA_MODE
 
+from traffic_sign.traffic_dection import TrafficDetection
+
+traffic_detection = TrafficDetection()
+
 emptyException = queue.Empty
 fullException = queue.Full
 
@@ -91,7 +95,11 @@ class RGBAnalyser(picamera.array.PiRGBAnalysis):
                         # start_time = time.time()
                         turn_percent, centroids = processImage(frame)
                         # times.append(time.time() - start_time)
-                        self.out_queue.put(item=(turn_percent, centroids), block=False)
+
+                        # Check traffic sign
+                        # resultSign = traffic_detection.signDetected(frame)
+                        resultSign = 0
+                        self.out_queue.put(item=(turn_percent if resultSign == 0 else resultSign * -1, centroids), block=False)
                     except Exception as e:
                         print("Exception in RBGAnalyser processing image: {}".format(e))
                 self.frame_num += 1
