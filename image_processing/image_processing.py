@@ -85,10 +85,6 @@ def processRois(image, roiHeight = 40):
     x2, y2 = processImageOpenCV(roi2)
     x3, y3 = processImageOpenCV(roi3)
 
-    cv2.imshow("roi1", roi1)
-    cv2.imshow("roi2", roi2)
-    cv2.imshow("roi3", roi3)
-
     x = np.array([x1, x2, x3])
     y = np.array([y1, y2, y3])
     return x, y

@@ -17,7 +17,7 @@ MAX_HEIGHT = CAMERA_RESOLUTION[1]
 ROI = [0, 75, MAX_WIDTH, MAX_HEIGHT - 75]
 
 # Image Analyser
-RECORD_VIDEO = False  # Record video to debug folder
+RECORD_VIDEO = True  # Record video to debug folder
 
 # Training
 FACTOR = 4  # Resize factor
