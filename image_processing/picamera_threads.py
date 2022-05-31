@@ -98,6 +98,12 @@ class RGBAnalyser(picamera.array.PiRGBAnalysis):
 
                         # Check traffic sign
                         resultSign = traffic_detection.signDetected(frame)
+
+                        # Check barrier
+                        barrier = traffic_detection.barrierDetected(frame)
+                        if barrier:
+                            resultSign = 4
+
                         self.out_queue.put(item=(turn_percent if resultSign == 0 else resultSign * -1, centroids), block=False)
                     except Exception as e:
                         print("Exception in RBGAnalyser processing image: {}".format(e))

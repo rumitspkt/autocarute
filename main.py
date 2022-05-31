@@ -2,6 +2,9 @@
 Main script for autonomous mode
 It launches all the thread and does the PID control
 use export OMP_NUM_THREADS=2 to improve performances
+
+MP4Box -add video.h264 video.mp4
+python -m train.split_video -i video.mp4 -o path/to/dataset/folder
 """
 from __future__ import division, print_function
 
@@ -166,6 +169,10 @@ def mainControl(command_queue, n_received_semaphore, out_queue, resolution, n_se
                 # command_queue.put_nowait((Order.MOTOR, 70))
             elif turn_percent == -3:
                 print("traffic sign: STOP")
+                # command_queue.put_nowait((Order.SERVO, 3))  # force stop
+                # command_queue.put_nowait((Order.MOTOR, 0))
+            elif turn_percent == -4:
+                print("barrier detected: STOP")
                 # command_queue.put_nowait((Order.SERVO, 3))  # force stop
                 # command_queue.put_nowait((Order.MOTOR, 0))
 

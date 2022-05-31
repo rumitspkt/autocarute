@@ -1,4 +1,5 @@
 import cv2
+import numpy as np
 
 stop_sign = cv2.CascadeClassifier("/home/pi/Desktop/autocarute/traffic_sign/stopsign_classifier.xml")
 turn_right = cv2.CascadeClassifier("/home/pi/Desktop/autocarute/traffic_sign/turnRight_ahead.xml")
@@ -6,6 +7,22 @@ turn_left = cv2.CascadeClassifier("/home/pi/Desktop/autocarute/traffic_sign/turn
 
 
 class TrafficDetection(object):
+
+    def barrierDetected(self, image, debug=False, thresholdRatio=0.19):
+        heightFrame, widthFrame = image.shape[:2]
+        frameArea = heightFrame * widthFrame
+        hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+        lower = np.array([116, 152, 112])
+        upper = np.array([158, 219, 252])
+        mask = cv2.inRange(hsv, lower, upper)
+        contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+        for cnt in contours:
+            area = cv2.contourArea(cnt)
+            ratio = area / frameArea
+            print('barrier ratio {}'.format(ratio))
+            if ratio >= thresholdRatio:
+                return True
+        return False
 
     # 0 - unknown, 1 - left, 2 - right, 3 - stop
     def signDetected(self, image, debug=False, thresholdRatio=0.19):
