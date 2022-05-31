@@ -8,7 +8,7 @@ turn_left = cv2.CascadeClassifier("/home/pi/Desktop/autocarute/traffic_sign/turn
 
 class TrafficDetection(object):
 
-    def barrierDetected(self, image, debug=False, threshold=200):
+    def barrierDetected(self, image, debug=False, threshold=1500):
         heightFrame, widthFrame = image.shape[:2]
         frameArea = heightFrame * widthFrame
         hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
@@ -20,8 +20,8 @@ class TrafficDetection(object):
         for cnt in contours:
             area = cv2.contourArea(cnt)
             totalArea += area
-        print('barrier total area {}'.format(totalArea))
         if totalArea >= threshold:
+            print('barrier total area {}'.format(totalArea))
             return True
         return False
 
