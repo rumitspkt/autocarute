@@ -1,8 +1,8 @@
 import cv2
 
-stop_sign = cv2.CascadeClassifier("stopsign_classifier.xml")
-turn_right = cv2.CascadeClassifier("turnRight_ahead.xml")
-turn_left = cv2.CascadeClassifier("turnLeft_ahead.xml")
+stop_sign = cv2.CascadeClassifier("/home/pi/Desktop/autocarute/traffic_sign/stopsign_classifier.xml")
+turn_right = cv2.CascadeClassifier("/home/pi/Desktop/autocarute/traffic_sign/turnRight_ahead.xml")
+turn_left = cv2.CascadeClassifier("/home/pi/Desktop/autocarute/traffic_sign/turnLeft_ahead.xml")
 
 
 class TrafficDetection(object):
@@ -43,17 +43,23 @@ class TrafficDetection(object):
 
         box = (0, 0, 0, 0)
         type = 0
-        if biggestStopArea > biggestLeftArea and biggestStopArea > biggestRightArea and stopRatio >= thresholdRatio:
-            box = stopBox
-            type = 3
+        if biggestStopArea > biggestLeftArea and biggestStopArea > biggestRightArea:
+            print('ratio stop: {}'.format(stopRatio))
+            if stopRatio >= thresholdRatio:
+                box = stopBox
+                type = 3
 
-        if biggestLeftArea > biggestStopArea and biggestLeftArea > biggestRightArea and leftRatio >= thresholdRatio:
-            box = leftBox
-            type = 1
+        if biggestLeftArea > biggestStopArea and biggestLeftArea > biggestRightArea:
+            print('ratio left: {}'.format(leftRatio))
+            if leftRatio >= thresholdRatio:
+                box = leftBox
+                type = 1
 
-        if biggestRightArea > biggestStopArea and biggestRightArea > biggestLeftArea and rightRatio >= thresholdRatio:
-            box = rightBox
-            type = 2
+        if biggestRightArea > biggestStopArea and biggestRightArea > biggestLeftArea:
+            print('ratio right: {}'.format(rightRatio))
+            if rightRatio >= thresholdRatio:
+                box = rightBox
+                type = 2
 
         if debug:
             if box[0] != 0 and box[1] != 0 and box[2] != 0 and box[3] != 0:
