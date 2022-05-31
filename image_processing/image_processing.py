@@ -79,7 +79,7 @@ def processRois(image, roiHeight = 40):
 
     roi1 = image[roiHeight:roiHeight * 2, 0:width]
     roi2 = image[height // 2 - roiHeight // 2:(height // 2 - roiHeight // 2) + 40, 0:width]
-    roi3 = image[height - roiHeight * 2:height - roiHeight, 0:width]
+    roi3 = image[height - roiHeight:height, 0:width]
 
     x1, y1 = processImageOpenCV(roi1)
     x2, y2 = processImageOpenCV(roi2)

@@ -151,19 +151,22 @@ def mainControl(command_queue, n_received_semaphore, out_queue, resolution, n_se
 
         # Send orders to Arduino
         try:
-            if turn_percent > 0:
-                rumdaica = 1
+            if turn_percent >= 0:
                 direction = angleToDirection(angle_order)
-                print("speed: {}  -   angle:{}".format(speed_order, angle_order))
+                print("speed:{} - angle:{}".format(speed_order, angle_order))
+                command_queue.put()
                 command_queue.put_nowait((Order.SERVO, direction))
-                command_queue.put_nowait((Order.MOTOR, 60 if direction == 1 or direction == 2 else 35))
+                command_queue.put_nowait((Order.MOTOR, 40 if direction == 1 or direction == 2 else 28))
             elif turn_percent == -1:
+                print("traffic sign: LEFT")
                 command_queue.put_nowait((Order.SERVO, 1)) # force left
-                command_queue.put_nowait((Order.MOTOR, int(speed_order)))
+                command_queue.put_nowait((Order.MOTOR, 70))
             elif turn_percent == -2:
+                print("traffic sign: RIGHT")
                 command_queue.put_nowait((Order.SERVO, 2))  # force right
-                command_queue.put_nowait((Order.MOTOR, int(speed_order)))
+                command_queue.put_nowait((Order.MOTOR, 70))
             elif turn_percent == -3:
+                print("traffic sign: STOP")
                 command_queue.put_nowait((Order.SERVO, 3))  # force stop
                 command_queue.put_nowait((Order.MOTOR, 0))
 
@@ -189,9 +192,9 @@ def mainControl(command_queue, n_received_semaphore, out_queue, resolution, n_se
 # 0 - stop, 1 - left, 2 - right, else forward/backward
 def angleToDirection(angle_order):
     direction = 0
-    if angle_order < 100:
+    if angle_order < 95:
         return 1
-    elif angle_order > 120:
+    elif angle_order > 125:
         return 2
     return angle_order
 
