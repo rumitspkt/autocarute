@@ -154,21 +154,20 @@ def mainControl(command_queue, n_received_semaphore, out_queue, resolution, n_se
             if turn_percent >= 0:
                 direction = angleToDirection(angle_order)
                 print("speed:{} - angle:{}".format(speed_order, angle_order))
-                command_queue.put()
-                command_queue.put_nowait((Order.SERVO, direction))
-                command_queue.put_nowait((Order.MOTOR, 40 if direction == 1 or direction == 2 else 28))
+                # command_queue.put_nowait((Order.SERVO, direction))
+                # command_queue.put_nowait((Order.MOTOR, 40 if direction == 1 or direction == 2 else 28))
             elif turn_percent == -1:
                 print("traffic sign: LEFT")
-                command_queue.put_nowait((Order.SERVO, 1)) # force left
-                command_queue.put_nowait((Order.MOTOR, 70))
+                # command_queue.put_nowait((Order.SERVO, 1)) # force left
+                # command_queue.put_nowait((Order.MOTOR, 70))
             elif turn_percent == -2:
                 print("traffic sign: RIGHT")
-                command_queue.put_nowait((Order.SERVO, 2))  # force right
-                command_queue.put_nowait((Order.MOTOR, 70))
+                # command_queue.put_nowait((Order.SERVO, 2))  # force right
+                # command_queue.put_nowait((Order.MOTOR, 70))
             elif turn_percent == -3:
                 print("traffic sign: STOP")
-                command_queue.put_nowait((Order.SERVO, 3))  # force stop
-                command_queue.put_nowait((Order.MOTOR, 0))
+                # command_queue.put_nowait((Order.SERVO, 3))  # force stop
+                # command_queue.put_nowait((Order.MOTOR, 0))
 
         except fullException:
             n_full += 1
