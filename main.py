@@ -152,8 +152,11 @@ def mainControl(command_queue, n_received_semaphore, out_queue, resolution, n_se
         # Send orders to Arduino
         try:
             if turn_percent > 0:
-                command_queue.put_nowait((Order.SERVO, angleToDirection(angle_order)))
-                command_queue.put_nowait((Order.MOTOR, int(speed_order)))
+                rumdaica = 1
+                direction = angleToDirection(angle_order)
+                print("speed: {}  -   angle:{}".format(speed_order, angle_order))
+                command_queue.put_nowait((Order.SERVO, direction))
+                command_queue.put_nowait((Order.MOTOR, 60 if direction == 1 or direction == 2 else 35))
             elif turn_percent == -1:
                 command_queue.put_nowait((Order.SERVO, 1)) # force left
                 command_queue.put_nowait((Order.MOTOR, int(speed_order)))

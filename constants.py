@@ -32,9 +32,9 @@ NUM_OUTPUT = 6  # Predict 3 points -> 6 outputs
 # Direction and speed
 THETA_MIN = 70  # value in [0, 255] sent to the servo
 THETA_MAX = 150
-MAX_SPEED_STRAIGHT_LINE = 30  # order between 0 and 100
-MAX_SPEED_SHARP_TURN = 25
-MIN_SPEED = 25
+MAX_SPEED_STRAIGHT_LINE = 35  # order between 0 and 100
+MAX_SPEED_SHARP_TURN = 35
+MIN_SPEED = 30
 
 # Path Planning
 TARGET_POINT = 0.5 # between [0, 1] position on the bezier curve
@@ -56,7 +56,7 @@ Kd = 4
 Ki = 0
 ALPHA = 1  # alpha of the moving mean for the turn coefficient
 # Main Program
-FPS = 40
+FPS = 1
 N_SECONDS = 3000  # number of seconds before exiting the program
 BAUDRATE = 115200  # Communication with the Arduino
 # Number of messages we can send to the Arduino without receiving an acknowledgment
