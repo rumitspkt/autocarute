@@ -8,7 +8,7 @@ turn_left = cv2.CascadeClassifier("/home/pi/Desktop/autocarute/traffic_sign/turn
 class TrafficDetection(object):
 
     # 0 - unknown, 1 - left, 2 - right, 3 - stop
-    def signDetected(self, image, debug=False, thresholdRatio=0.2):
+    def signDetected(self, image, debug=False, thresholdRatio=0.19):
         heightFrame, widthFrame = image.shape[:2]
         frameArea = heightFrame * widthFrame
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
