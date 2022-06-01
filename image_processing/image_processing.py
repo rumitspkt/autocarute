@@ -54,8 +54,8 @@ def processImage(image, debug=False):
 
 def processImageOpenCV(image, debug=False):
     hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
-    lower_white = np.array([0, 99, 0])
-    upper_white = np.array([179, 255, 87])
+    lower_white = np.array([0, 51, 0])
+    upper_white = np.array([179, 255, 126])
     mask = cv2.inRange(hsv, lower_white, upper_white)
     kernel_erode = np.ones((4, 4), np.uint8)
     eroded_mask = cv2.erode(mask, kernel_erode, iterations=1)
